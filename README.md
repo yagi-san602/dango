@@ -1,6 +1,7 @@
 # Dango
 
 This is your story.
+Fairy Goat.
 
 ## Run in development mode
 
