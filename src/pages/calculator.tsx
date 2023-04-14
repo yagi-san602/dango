@@ -24,7 +24,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (d === '0') {
                   d = '1';
                 } else {
@@ -41,7 +41,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (d === '0') {
                   d = '2';
                 } else {
@@ -58,7 +58,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (d === '0') {
                   d = '3';
                 } else {
@@ -108,7 +108,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (d === '0') {
                   d = '4';
                 } else {
@@ -125,7 +125,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (d === '0') {
                   d = '5';
                 } else {
@@ -142,7 +142,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (d === '0') {
                   d = '6';
                 } else {
@@ -192,7 +192,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (d === '0') {
                   d = '7';
                 } else {
@@ -209,7 +209,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (d === '0') {
                   d = '8';
                 } else {
@@ -226,7 +226,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (d === '0') {
                   d = '9';
                 } else {
@@ -276,7 +276,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (flgDot === '0') {
                   d = d + '.';
                   setFlgDot('1');
@@ -292,7 +292,7 @@ const IndexPage: NextPage = (): ReactElement => {
               onClick={() => {
                 let d = dspCount;
                 let math = flgMath;
-                if (math === '1') {d = '0'}
+                if (math === '1') {d = '0';}
                 if (d === '0') {
                   d = '0';
                 } else {
