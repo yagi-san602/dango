@@ -3,13 +3,70 @@ import React, { ReactElement, useState } from 'react';
 import { Button } from '../components/Button';
 
 const IndexPage: NextPage = (): ReactElement => {
-  const [count, setCount] = useState<number>(0);
   const [memo, setMemo] = useState<number>(0);
   const [dspCount, setDspCount] = useState<string>('0');
-  const [flgMath, setFlgMath] = useState<string>('1');
-  const [flgDot, setFlgDot] = useState<string>('0');
-  const [flgCal, setFlgCal] = useState<string>('0');
+  const [flgMath, setFlgMath] = useState<string>('ON'); // OFF：表示値に追加、ON：表示値クリア
+  const [flgDot, setFlgDot] = useState<string>('OFF');  // OFF：カンマ未入力、ON：カンマ入力
+  const [flgCal, setFlgCal] = useState<string>('');     // +/*-：直前に設定された演算子、''：演算子なし（=）
   const [labourHours, setLabourHours] = useState<string>('0');
+
+//数字入力関数
+function hitNumber (num: string ):void {
+  let d = dspCount;
+  let math = flgMath;
+  if (math === 'ON') {d = '0';}
+  if (d === '0') {
+    d = `${num}`;
+  } else {
+    d = `${d}${num}`;
+  }
+  setFlgMath('OFF');
+  setDspCount(d);
+};
+
+//ドット入力関数 ※数字入力と統合するかも
+function hitDot (num: string ):void {
+  let d = dspCount;
+  let math = flgMath;
+  if (math === 'ON') {d = '0';}
+  if (flgDot === 'OFF') {
+    d = `${d}${num}`;
+    setFlgDot('ON');
+  }
+  setFlgMath('OFF');
+  setDspCount(d);
+};
+
+//演算子入力関数
+function hitOperator (ope: string ):void {
+  let math = flgMath;
+  let cal = flgCal;
+  let ans = 0;
+  if (math === 'OFF') {
+    switch(cal){
+      case '+':
+        ans = memo + Number(dspCount);
+        break;
+      case '-':
+        ans = memo - Number(dspCount);
+        break;
+      case '*':
+        ans = memo * Number(dspCount);
+        break;
+      case '/':
+        ans = memo / Number(dspCount);
+        break;
+      default :
+        ans = Number(dspCount);
+        break;
+    }
+    setMemo(ans);
+    setDspCount(`${ans}`);
+    setFlgMath('ON');
+    setFlgDot('OFF');
+  }
+  setFlgCal(ope);
+};
 
   return (
     <>
@@ -22,351 +79,112 @@ const IndexPage: NextPage = (): ReactElement => {
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (d === '0') {
-                  d = '1';
-                } else {
-                  d = d + '1';
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitNumber('1');
               }}>
               <span className="select-none text-xl">1</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (d === '0') {
-                  d = '2';
-                } else {
-                  d = d + '2';
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitNumber('2');
               }}>
               <span className="select-none text-xl">2</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (d === '0') {
-                  d = '3';
-                } else {
-                  d = d + '3';
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitNumber('3');
               }}>
               <span className="select-none text-xl">3</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let math = flgMath;
-                let cal = flgCal;
-                let ans = 0;
-                if (math === '0') {
-                  switch(cal){
-                    case '1':
-                      ans = memo + count;
-                      break;
-                    case '2':
-                      ans = memo - count;
-                      break;
-                    case '3':
-                      ans = memo * count;
-                      break;
-                    case '4':
-                      ans = memo / count;
-                      break;
-                    default :
-                      ans = count;
-                      break;
-                  }
-                  setMemo(ans);
-                  setDspCount(`${ans}`);
-                  setFlgMath('1');
-                  setFlgDot('0');
-                }
-                setFlgCal('1');
+                hitOperator('+');
               }}>
               <span className="select-none text-xl">+</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (d === '0') {
-                  d = '4';
-                } else {
-                  d = d + '4';
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitNumber('4');
               }}>
               <span className="select-none text-xl">4</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (d === '0') {
-                  d = '5';
-                } else {
-                  d = d + '5';
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitNumber('5');
               }}>
               <span className="select-none text-xl">5</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (d === '0') {
-                  d = '6';
-                } else {
-                  d = d + '6';
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitNumber('6');
               }}>
               <span className="select-none text-xl">6</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let math = flgMath;
-                let cal = flgCal;
-                let ans = 0;
-                if (math === '0') {
-                  switch(cal){
-                  case '1':
-                    ans = memo + count;
-                    break;
-                  case '2':
-                    ans = memo - count;
-                    break;
-                  case '3':
-                    ans = memo * count;
-                    break;
-                  case '4':
-                    ans = memo / count;
-                    break;
-                  default :
-                    ans = count;
-                    break;
-                  }
-                  setMemo(ans);
-                  setDspCount(`${ans}`);
-                  setFlgMath('1');
-                  setFlgDot('0');
-                }
-                setFlgCal('2');
+                hitOperator('-');
               }}>
               <span className="select-none text-xl">-</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (d === '0') {
-                  d = '7';
-                } else {
-                  d = d + '7';
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitNumber('7');
               }}>
               <span className="select-none text-xl">7</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (d === '0') {
-                  d = '8';
-                } else {
-                  d = d + '8';
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitNumber('8');
               }}>
               <span className="select-none text-xl">8</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (d === '0') {
-                  d = '9';
-                } else {
-                  d = d + '9';
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitNumber('9');
               }}>
               <span className="select-none text-xl">9</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let math = flgMath;
-                let cal = flgCal;
-                let ans = 0;
-                if (math === '0') {
-                  switch(cal){
-                  case '1':
-                    ans = memo + count;
-                    break;
-                  case '2':
-                    ans = memo - count;
-                    break;
-                  case '3':
-                    ans = memo * count;
-                    break;
-                  case '4':
-                    ans = memo / count;
-                    break;
-                  default :
-                    ans = count;
-                    break;
-                  }
-                  setMemo(ans);
-                  setDspCount(`${ans}`);
-                  setFlgMath('1');
-                  setFlgDot('0');
-                }
-                setFlgCal('3');
+                hitOperator('*');
               }}>
               <span className="select-none text-xl">*</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (flgDot === '0') {
-                  d = d + '.';
-                  setFlgDot('1');
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitDot('.');
               }}>
               <span className="select-none text-xl">.</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let d = dspCount;
-                let math = flgMath;
-                if (math === '1') {d = '0';}
-                if (d === '0') {
-                  d = '0';
-                } else {
-                  d = d + '0';
-                }
-                setDspCount(d);
-                setCount(Number(d));
-                setFlgMath('0');
+                hitNumber('0');
               }}>
               <span className="select-none text-xl">0</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let math = flgMath;
-                let cal = flgCal;
-                let ans = 0;
-                if (math === '0') {
-                  switch(cal){
-                    case '1':
-                      ans = memo + count;
-                      break;
-                    case '2':
-                      ans = memo - count;
-                      break;
-                    case '3':
-                      ans = memo * count;
-                      break;
-                    case '4':
-                      ans = memo / count;
-                      break;
-                    default :
-                      ans = count;
-                      break;
-                  }
-                  setMemo(0);
-                  setDspCount(`${ans}`);
-                  setFlgMath('1');
-                  setFlgDot('0');
-                }
-                setFlgCal('0');
+                hitOperator('');
               }}>
               <span className="select-none text-xl">=</span>
             </Button>
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                let math = flgMath;
-                let cal = flgCal;
-                let ans = 0;
-                if (math === '0') {
-                  switch(cal){
-                  case '1':
-                    ans = memo + count;
-                    break;
-                  case '2':
-                    ans = memo - count;
-                    break;
-                  case '3':
-                    ans = memo * count;
-                    break;
-                  case '4':
-                    ans = memo / count;
-                    break;
-                  default :
-                    ans = count;
-                    break;
-                  }
-                  setMemo(ans);
-                  setDspCount(`${ans}`);
-                  setFlgMath('1');
-                  setFlgDot('0');
-                }
-                setFlgCal('4');
+                hitOperator('/');
               }}>
               <span className="select-none text-xl">/</span>
             </Button>
