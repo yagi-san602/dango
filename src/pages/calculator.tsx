@@ -8,7 +8,8 @@ const IndexPage: NextPage = (): ReactElement => {
   const [flgMath, setFlgMath] = useState<string>('ON'); // OFF：表示値に追加、ON：表示値クリア
   const [flgDot, setFlgDot] = useState<string>('OFF');  // OFF：カンマ未入力、ON：カンマ入力
   const [flgCal, setFlgCal] = useState<string>('');     // +/*-：直前に設定された演算子、''：演算子なし（=）
-  const [labourHours, setLabourHours] = useState<string>('0');
+  //const [labourHours, setLabourHours] = useState<string>('0');
+  let operator : '+' | '-' | '*' | '/' | '=';
 
 //数字入力関数
 function hitNumber (num: string ):void {
@@ -38,7 +39,7 @@ function hitDot (num: string ):void {
 };
 
 //演算子入力関数
-function hitOperator (ope: string ):void {
+function hitOperator (ope: typeof operator):void {
   let math = flgMath;
   let cal = flgCal;
   let ans = 0;
@@ -177,7 +178,7 @@ function hitOperator (ope: string ):void {
             <Button
               className="py-2 bg-cyan-600 text-white rounded border border-gray-200 cursor-pointer"
               onClick={() => {
-                hitOperator('');
+                hitOperator('=');
               }}>
               <span className="select-none text-xl">=</span>
             </Button>
