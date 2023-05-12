@@ -2,14 +2,15 @@ import { NextPage } from 'next';
 import React, { ReactElement, useState } from 'react';
 import { Button } from '../components/Button';
 
+type Operator = '+' | '-' | '*' | '/';
+type OnOff = 'ON' | 'OFF';
+
 const IndexPage: NextPage = (): ReactElement => {
-  type operator = '+' | '-' | '*' | '/';
-  type onOff = 'ON' | 'OFF';
   const [memo, setMemo] = useState<number>(0);
   const [dspCount, setDspCount] = useState<string>('0');
-  const [flgMath, setFlgMath] = useState<onOff>('ON'); // OFF：表示値に追加、ON：表示値クリア
-  const [flgDot, setFlgDot] = useState<onOff>('OFF');  // OFF：カンマ未入力、ON：カンマ入力
-  const [flgCal, setFlgCal] = useState<operator | null>();     // +/*-：直前に設定された演算子、null：演算子なし（=）
+  const [flgMath, setFlgMath] = useState<OnOff>('ON'); // OFF：表示値に追加、ON：表示値クリア
+  const [flgDot, setFlgDot] = useState<OnOff>('OFF');  // OFF：カンマ未入力、ON：カンマ入力
+  const [flgCal, setFlgCal] = useState<Operator | null>(null);     // +/*-：直前に設定された演算子、null：演算子なし（=）
   //const [labourHours, setLabourHours] = useState<string>('0');
 
 //数字入力関数
@@ -40,7 +41,7 @@ function hitDot (num: string ):void {
 };
 
 //演算子入力関数
-function hitOperator (ope: operator | null):void {
+function hitOperator (ope: Operator | null):void {
   let math = flgMath;
   let cal = flgCal;
   let ans = 0;
